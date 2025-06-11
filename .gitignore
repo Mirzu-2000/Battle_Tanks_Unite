@@ -59,6 +59,20 @@ gradle/ # Added: Gradle wrapper directory (if not part of the project itself)
 # Visual Studio Code (VS Code) files
 .vscode/ # Added: VS Code settings and cache
 
+/.vs/CharacterSelection-main/FileContentIndex 
+vsconfig
+# Visual Studio (additional ignores)
+**/*.vsix # Ignore all .vsix files recursively
+# Or, if you want to be more specific to the indexer:
+.vs/*/FileContentIndexer/
+
+# Ignore Visual Studio files
+*.vcxproj
+*.vcxproj.filters
+*.vcxproj.user
+.vs/
+
+
 # OSX files
 .DS_Store # Added: macOS specific folder attributes
 .Spotlight-V100 # Added: macOS Spotlight indexing

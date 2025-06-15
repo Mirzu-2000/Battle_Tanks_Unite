@@ -1,54 +1,53 @@
-﻿using System.Collections;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using UnityEngine;
 
+/// <summary>
+/// TankSpawner is responsible for spawning tanks based on TankType.
+/// </summary>
 public class TankSpawner : MonoBehaviour
 {
     [System.Serializable]
     public class Tank
     {
+        [Header("Tank Configurations")]
         public float movementSpeed;
-
         public float rotationSpeed;
-
         public TankTypes tankType;
-
         public Material color;
-
-
     }
 
+    #region Public References
+
+    [Header("Tank Setup")]
     public List<Tank> tanklist;
 
-   public TankView tankView;
-    void Start()
-    {
-       
-    }
+    [Header("Prefab Reference")]
+    public TankView tankView;
+
+    #endregion
+
+    #region Public Methods
 
     public void CreateTank(TankTypes tankType)
     {
-        if (tankType == TankTypes.GreenTank)
+        Tank selectedTank = tanklist.Find(tank => tank.tankType == tankType);
+
+        if (selectedTank != null)
         {
-            TankModel tankModel = new TankModel(tanklist[0].movementSpeed, tanklist[0].rotationSpeed, tanklist[0].tankType, tanklist[0].color);
+            TankModel tankModel = new TankModel(
+                selectedTank.movementSpeed,
+                selectedTank.rotationSpeed,
+                selectedTank.tankType,
+                selectedTank.color
+            );
 
             TankController tankController = new TankController(tankModel, tankView);
         }
-
-       else if (tankType == TankTypes.BlueTank)
+        else
         {
-            TankModel tankModel = new TankModel(tanklist[1].movementSpeed, tanklist[1].rotationSpeed, tanklist[1].tankType, tanklist[1].color);
-
-            TankController tankController = new TankController(tankModel, tankView);
+            Debug.LogWarning($"No configuration found for tank type: {tankType}");
         }
-
-        else if (tankType == TankTypes.RedTank)
-        {
-            TankModel tankModel = new TankModel(tanklist[2].movementSpeed, tanklist[2].rotationSpeed, tanklist[2].tankType, tanklist[2].color);
-
-            TankController tankController = new TankController(tankModel, tankView);
-        }
-
     }
 
+    #endregion
 }

@@ -1,54 +1,60 @@
-﻿using System.Collections;
-using System.Collections.Generic;
-using UnityEngine;
+﻿using UnityEngine;
 
+/// <summary>
+/// TankView handles the visual and input part of the tank.
+/// </summary>
 public class TankView : MonoBehaviour
 {
+    #region Private Fields
+
     private TankController tankController;
-
     private float movement;
+    private float rotate;
 
-    private float roatate;
+    #endregion
 
+    #region Public References
+
+    [Header("Tank Components")]
     public Rigidbody rb;
 
+    [Tooltip("Assign all mesh parts to apply material")]
     public MeshRenderer[] childs;
 
-    // Start is called before the first frame update
+    #endregion
+
+    #region Unity Callbacks
+
     void Start()
     {
+        // Attach main camera to the tank
         GameObject cam = GameObject.Find("Main Camera");
-
         cam.transform.SetParent(transform);
-        cam.transform.position =  new Vector3(0f, 3f, -4f);
-        
+        cam.transform.localPosition = new Vector3(0f, 3f, -4f);
     }
 
-    // Update is called once per frame
     void Update()
     {
-        Movement();
+        HandleInput();
+
         if (movement != 0)
         {
             tankController.Move(movement, tankController.GetTankModel().movenentSpeed);
         }
 
-        if (roatate != 0)
+        if (rotate != 0)
         {
-            tankController.Rotate(roatate, tankController.GetTankModel().rotationSpeed);
+            tankController.Rotate(rotate, tankController.GetTankModel().rotationSpeed);
         }
     }
+
+    #endregion
+
+    #region Public Methods
 
     public void SetTankController(TankController tankController)
     {
         this.tankController = tankController;
-    }
-
-    private void Movement()
-    {
-        movement = Input.GetAxis("Vertical");
-        Debug.Log(movement);
-        roatate = Input.GetAxis("Horizontal");
     }
 
     public Rigidbody GetRigidbody()
@@ -58,10 +64,21 @@ public class TankView : MonoBehaviour
 
     public void ChangeColor(Material color)
     {
-        for (int i = 0; i < childs.Length; i++)
+        foreach (MeshRenderer part in childs)
         {
-            childs[i].material = color;
+            part.material = color;
         }
     }
 
+    #endregion
+
+    #region Private Methods
+
+    private void HandleInput()
+    {
+        movement = Input.GetAxis("Vertical");
+        rotate = Input.GetAxis("Horizontal");
+    }
+
+    #endregion
 }

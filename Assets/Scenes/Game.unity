@@ -358,15 +358,15 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   tanklist:
   - movementSpeed: 30
-    rotationSpeed: 60
+    rotationSpeed: 30
     tankType: 0
     color: {fileID: 2100000, guid: 12c120f2400576c4f97a98bcca5529bc, type: 2}
-  - movementSpeed: 10
-    rotationSpeed: 50
+  - movementSpeed: 20
+    rotationSpeed: 25
     tankType: 1
     color: {fileID: 2100000, guid: ff21ff0ea9b18924bb1fdfbb0e58f5cb, type: 2}
-  - movementSpeed: 60
-    rotationSpeed: 120
+  - movementSpeed: 40
+    rotationSpeed: 40
     tankType: 2
     color: {fileID: 2100000, guid: 463052f3f7389124f9e7b34b0b931d0d, type: 2}
   tankView: {fileID: 5304357392714985826, guid: 12ccd2e16acec6441933567ae6e56fd7,
